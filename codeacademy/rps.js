@@ -1,3 +1,4 @@
+window.onload = function() {
 const getUserChoice = userInput => {
   userInput = userInput.toLowerCase()
   if (userInput ==="rock" || userInput==="paper" || userInput==="scissors" || userInput === "bomb"){
@@ -68,4 +69,4 @@ const playGame = function(){
   
 }
 
-playGame()
+}
