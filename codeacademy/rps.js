@@ -1,72 +1,60 @@
 window.onload = function() {
-const getUserChoice = userInput => {
-  userInput = userInput.toLowerCase()
-  if (userInput ==="rock" || userInput==="paper" || userInput==="scissors" || userInput === "bomb"){
-    return userInput
-  }else{
-    return "Error. Invalid Input"
-  }  
+const rock = document.getElementById("r");
+const paper = document.getElementById("p");
+const scissors = document.getElementById("s");
+var userScore_span = document.getElementById("user-score");
+var computerScore_span = document.getElementById("computer-score");
+let userScore = 0;
+let computerScore = 0;
+function getComputerChoice() {
+var choices = ['r','p','s'];
+var randomNumber = Math.floor(Math.random() * 3);
+return choices[randomNumber];
 }
 
-const getComputerChoice = () => {
-  num = Math.random() * 3
-  num = Math.floor(num)
-  switch(num){
-    case 0:
-      return "rock"
-      break;
-    case 1:
-      return "paper"
-      break;
-    case 2:
-      return "scissors"
-      break;
-    default:
-      return 'Computer Error.'
-      break;
-  }
+function winUser() {
+userScore++;
+userScore_span.innerHTML = userScore;
 }
-
-const determineWinner = (userChoice, computerChoice) => {
-  if(userChoice===computerChoice){
-    return "The game is a tie! You chose the same item as the computer!"
-	}else{
-    if (userChoice==='rock'){
-      if(computerChoice === 'paper'){
-        return "I'm sorry. You lost the game."
-      }else{
-        return "Woohoo! You defeated the computer!"
-      }
-    }else if (userChoice === "paper"){
-      if(computerChoice === "scissors"){
-        return "I'm sorry. You lost the game."
-      }else{
-        return "Woohoo! You defeated the computer!"
-      }
-    }else if (userChoice === "scissors"){
-      if(computerChoice === "rock"){
-        return "I'm sorry. You lost the game."
-      }else{
-        return "Woohoo! You defeated the computer!"
-      }
-    }else if(userChoice === "bomb"){
-      return "You bombed the computer! It lost!"
-    }
-  }
+function winComputer() {
+computerScore++;
+computerScore_span.innerHTML = computerScore;
 }
-
-const playGame = function(){
-  let userChoice = getUserChoice('rock')
-  let computerChoice = getComputerChoice()
-  if(userChoice === "bomb"){
-    console.log("You bombed the computer!");
-    console.log(`The computer's choice was ${computerChoice}.`)
-  }else{
-      console.log(`Your choice was ${userChoice}.`)
-    console.log(`The computer's choice was ${computerChoice}.`)
-  }
-  console.log(determineWinner(userChoice, computerChoice))
-  
+function draw() {
+ alert("It's a draw!");
 }
-
+function game(userChoice) {
+ const computerChoice = getComputerChoice();
+ switch (userChoice + computerChoice) {
+	 case "rs":
+	 case "pr":
+	 case "sp":
+	 winUser();
+	break;
+	 case "rp":
+	 case "ps":
+	 case "sr":
+	 winComputer();
+	break;
+	 case "rr":
+	 case "pp":
+	 case "ss":
+   draw();
+ }
+}
+	
+function main() {
+rock.addEventListener("click", function() {
+ game("r");
+});
+paper.addEventListener("click", function() {
+ game("p");
+});
+scissors.addEventListener("click", function() {
+ game("s");
+});
+	}
+	
+	main();
+	
 }
